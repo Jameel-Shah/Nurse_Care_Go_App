@@ -50,7 +50,7 @@ This project was developed as a Final Year Project.
   
 ---
 
-### Tech Stack
+## Tech Stack
 * **Frontend:** [Flutter](https://flutter.dev) (UI Toolkit)
 * **Backend:** [Firebase](https://firebase.google.com) (Auth, Realtime Database)
 * **Language:** [Dart](https://dart.dev) 
@@ -63,8 +63,56 @@ This project was developed as a Final Year Project.
 ### Prerequisites
 Make sure you have the following installed:
 - [Flutter SDK](https://docs.flutter.dev/install) (3.x or above)
-- [Android Studio](https://developer.android.com/studio/install) or (VS Code)(https://code.visualstudio.com/download)
-- A Firebase project set up at (https://console.firebase.google.com)
+- [Android Studio](https://developer.android.com/studio/install) or [VS Code](https://code.visualstudio.com/download)
+- A Firebase project set up at [console.firebase.google.com](https://console.firebase.google.com)
     
 ### Clone The Repository
-```bash```
+```bash 
+git clone https://github.com/Jameel-Shah/Nurse_Care_Go_App.git
+```
+
+### Firebase Setup
+
+This project requires your own Firebase configuration. The `google-services.json` 
+and `firebase_options.dart` files are excluded from this repository for security.
+
+1. Go to [Firebase Console](https://console.firebase.google.com).
+2. Create a new project
+3. Add an Android app or an IOS app and download `google-services.json`
+4. Place it in `android/app/`
+5. Enable the following Firebase services:
+   - Authentication (Email/Password)
+   - Realtime Database
+
+### Install Dependencies
+
+```bash
+flutter pub get
+```
+
+### Run The App
+```bash
+flutter run
+```
+
+---
+
+## Known Limitations
+
+- Currently supports Pakistani phone number format
+- Web support is limited (primarily built for Android)
+- Chat feature requires both users to be registered
+
+---
+
+
+## Author
+** M Jameel Ur Rehman Shah**
+Final Year Project - [University Of Agriculture Faisalabad]
+
+---
+
+## License
+
+This project is for academic purposes only.
+
