@@ -84,6 +84,148 @@ and `firebase_options.dart` files are excluded from this repository for security
    - Authentication (Email/Password)
    - Realtime Database
 
+### Cloudinary Setup
+
+This project uses Cloudinary for image uploads. 
+The service file is excluded from this repository for security.
+1. Create a free account at [cloudinary.com](https://cloudinary.com)
+2. From your dashboard note your **Cloud Name**
+3. Go to Settings → Upload → Add upload preset
+4. Create a new preset and set it to **Unsigned**
+5. Create the file `lib/services/cloudinary_service.dart`
+```dart
+import 'dart:convert';
+import 'dart:io';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
+import 'package:http/http.dart' as http;
+import 'package:project_uaf/resources/utils/error_handler.dart';
+
+// Creating a class to upload image onto 'Cloudinary'
+class CloudinaryService {
+// Cloudinary credentials
+static const String _cloudName= 'YOUR_CLOUD_NAME'; // cloud name from 'Cloudinary'
+static const String _uploadPreset = 'YOUR_UPLOAD_PRESET'; //Unsigned-preset I created on 'Cloudinary'
+
+//Method for uploading the image and returning the url
+Future<String> uploadProfileImage({
+    required File imageFile,
+  required String userId,
+   required String userType, // 'Nurse' or ''Patient
+}) async{
+  // print('>>> STEP 1: uploadProfileImage called');
+  // print('>>> imageFile exists: ${imageFile.existsSync()}');
+  // print('>>> imageFile path: ${imageFile.path}');
+  try{
+    // print('>>> STEP 2: starting compression');
+    // Step 1 - Compress the image before uploading
+    final compressedBytes = await _compressImage(imageFile);
+    if(compressedBytes == null){
+      throw AppException('Could not compress image. Please try another');
+    }
+    // print('>>> STEP 3: compression done — size: ${compressedBytes.length} bytes');
+
+    // Step 2 - Build the upload URL
+    final uri= Uri.parse('https://api.cloudinary.com/v1_1/$_cloudName/image/upload');
+    // print('>>> STEP 4: upload URI built: $uri');
+    // Step 3 - build multipart request
+    final request= http.MultipartRequest('Post', uri);
+    // Step 4 - Add required fields
+    request.fields['upload_preset']= _uploadPreset;
+    // This sets the folder structure in Cloudinary: Nurses/uid or Patients/uid
+    request.fields['public_id']= '$userType/$userId/profile';
+    // Step 5 - Attach the compressed image bytes
+    request.files.add(http.MultipartFile.fromBytes('file', compressedBytes, filename: 'profile.jpg'));
+    // print('>>> STEP 5: request built, sending now...');
+    // Step 6 - send the request with a timeout so it doesn't hang forever
+    final streamedResponse= await request.send().timeout(Duration(seconds: 30), onTimeout: ()=> throw AppException('Upload time out. Please check your internet connection'));
+    final responseBody= await streamedResponse.stream.bytesToString();
+    // print('>>> STEP 6: response received');
+    // print('>>> status code: ${streamedResponse.statusCode}');
+    // print('>>> response body: $responseBody');
+    if(streamedResponse.statusCode==200){
+      // Step 7 - parse the response and return the image URL
+      final json= jsonDecode(responseBody);
+      final url= json['secure_url'] as String?;
+      if(url==null) throw AppException('Upload succeeded but no URL returned');
+      // print('>>> STEP 7: upload SUCCESS — url: $url');
+      return  url;// This is the secure https image URL
+    }else{
+      // Log the full error to terminal so you can see what Cloudinary says
+      // print('Cloudinary error response: $responseBody');
+      final json= jsonDecode(responseBody);
+      throw AppException(json['error']?['message']?? 'Image upload failed.');
+    }
+  } on AppException{
+    rethrow; // Already clean
+  } catch(e){
+    // print('>>> CAUGHT ERROR: $e');
+    throw AppException(ErrorHandler.parse(e));
+  }
+}
+
+// Private helper method to compress image before uploading
+Future<List<int>?> _compressImage(File imageFile) async{
+  // print('>>> _compressImage called');
+  try{
+    final result= await FlutterImageCompress.compressWithFile(imageFile.absolute.path, quality: 80, minHeight: 400, minWidth: 400, format: CompressFormat.jpeg);
+    return result;
+  }catch(e){
+    // print('>>> _compressImage ERROR: $e');
+    rethrow;
+  }
+}
+}
+```
+### Firebase Database Rules
+
+```json
+{
+  /* Visit https://firebase.google.com/docs/database/security to learn more about security rules. */
+  "rules": {
+    "Nurses":{
+      ".read": "auth!=null", // logged in user(patients) can read nurse's data
+      "$uid":{
+        //".read": "auth!=null && auth.uid === $uid",
+        ".write": "auth!=null && auth.uid === $uid"
+      }
+    },
+      "Patients":{
+        ".read": "auth!=null", // logged in user(nurses) can read patient's data
+        "$uid":{
+          //".read": "auth!=null && auth.uid === $uid",
+    			".write": "auth!=null && auth.uid === $uid"
+        }
+      },
+    "NurseBookings":{
+      ".read": "auth!=null", // Only logged in users can access or read booking data
+      ".indexOn": ["patientId", "nurseId"],
+      "$bookingId":{
+        // Patients can read their own bookings
+        // nurse can read bookings assigned to them
+        ".read": "auth!=null && (data.child('patientId').val()=== auth.uid || data.child('nurseId').val()=== auth.uid)",
+          
+          // only authenticad users can create a booking
+          // patientId in data must match who is writing it
+          // prevents a user from booking on behalf of someone else
+          ".write": "auth!=null && (newData.child('patientId').val()=== auth.uid || data.child('patientId').val()=== auth.uid || data.child('nurseId').val()=== auth.uid)"
+      }
+    },
+    // Rules for "Chats" database, Only logged in users can read and write messages
+    "Chats":{
+      ".read": "auth!=null", ".write": "auth!=null"
+    },
+    // Rules for "ChatList" database, only logged in users can see chat-lists
+    "ChatList":{
+      ".read": "auth!=null", ".write": "auth!=null"
+    },
+    // Rules for "Status" database, online or offline status will be set after successful login/registration
+    "Status":{
+      ".read": "auth!=null", ".write": "auth!=null"
+    }
+  }
+}
+```
+
 ### Install Dependencies
 
 ```bash
