@@ -248,11 +248,44 @@ flutter run
 
 ---
 
+## Screenshots
+
+<img width="720" height="1600" alt="Splash_screen" src="https://github.com/user-attachments/assets/dd0ceebd-ec80-4224-baed-f7bf3d1190bf" />
+<img width="720" height="1600" alt="Login_screen" src="https://github.com/user-attachments/assets/a0c46c1d-d7e0-427f-a0b8-c5d579fe12d2" />
+<img width="720" height="1600" alt="Patient_Registration_screen_1sthalf" src="https://github.com/user-attachments/assets/689cb138-c028-45f1-8648-eaf771f64ee5" />
+<img width="720" height="1600" alt="Patient_Registeration_Screen_2ndhalf" src="https://github.com/user-attachments/assets/824c2834-13c2-40ec-9b39-c2f73fa8a073" />
+<img width="720" height="1600" alt="Nurse_registeration_Screen_1sthalf" src="https://github.com/user-attachments/assets/de5dee31-ecf1-4f15-93b2-66655b0f6c0d" />
+<img width="720" height="1600" alt="Nurse_registeration_Screen_2ndhalf" src="https://github.com/user-attachments/assets/76369f0d-9a28-4785-8d69-1142094fead8" />
+<img width="720" height="1600" alt="Patient_Home_Screen" src="https://github.com/user-attachments/assets/f37692a8-8472-4836-91b6-18da8d962d42" />
+<img width="720" height="1600" alt="See_All_Nurses_Screen" src="https://github.com/user-attachments/assets/22c17c62-3e4d-46d6-8624-48020a84630c" />
+<img width="720" height="1600" alt="Nurse_Details_View_!sthalf_Patiient_side" src="https://github.com/user-attachments/assets/fee1820e-24d4-43a2-80ec-e99bcb07bfac" />
+<img width="720" height="1600" alt="Confirm Booking Screen" src="https://github.com/user-attachments/assets/c9396da2-e674-4143-b95f-66c6d77db6dc" />
+<img width="720" height="1600" alt="Bookings_Screen_Patient_Side" src="https://github.com/user-attachments/assets/acd5de8e-1169-4cf4-a528-8d08dd2fde41" />
+<img width="720" height="1600" alt="Patient_Profile_Screen" src="https://github.com/user-attachments/assets/080ad044-2ece-4f2e-aca7-969c5cec1e3e" />
+<img width="720" height="1600" alt="Patient_Edit_Profile_Screen_1st_Half" src="https://github.com/user-attachments/assets/7786edae-9a5e-426b-85b6-a7c86c09beff" />
+<img width="720" height="1600" alt="Patient_Edit_Profile_Screen_2nd_Half" src="https://github.com/user-attachments/assets/76f6f98f-58ae-4c68-b3f5-1cb8081a6668" />
+<img width="720" height="1600" alt="Patient_Side_ChatList_Screen" src="https://github.com/user-attachments/assets/6c7c1cfa-e261-408b-ac89-389ab1b2a265" />
+<img width="720" height="1600" alt="Chat_Screen" src="https://github.com/user-attachments/assets/1741762c-5fd2-47d3-a2d5-8d4a9a4a4ee7" />
+<img width="720" height="1600" alt="Nurse_Home_Screen" src="https://github.com/user-attachments/assets/0e8b9a37-b885-4e4b-b7e2-8d612c010a0a" />
+<img width="720" height="1600" alt="Patient_DetalView_Screen_Start" src="https://github.com/user-attachments/assets/6c5f7d1a-8f8d-4979-bcff-10db37c77f49" />
+<img width="720" height="1600" alt="Patient_DetalView_Screen" src="https://github.com/user-attachments/assets/53c2609d-5086-4f46-9626-d4887ee068e7" />
+<img width="720" height="1600" alt="Nurse_ChatList_Screen" src="https://github.com/user-attachments/assets/176a1fc8-94df-49a9-b2d1-602399188534" />
+<img width="720" height="1600" alt="Nurse_Profile_Screen_1stHalf" src="https://github.com/user-attachments/assets/235fbef9-9522-46bc-ab59-85e72331254f" />
+<img width="720" height="1600" alt="Nurse_Profile_screen" src="https://github.com/user-attachments/assets/3b57a8b0-50b6-4553-96e4-d90b2d49fa2f" />
+<img width="720" height="1600" alt="Bookng_Requests_Screen_Nurse_Side" src="https://github.com/user-attachments/assets/8e24b2ef-d079-49a2-9478-22d74dd07b83" />
+<img width="720" height="1600" alt="Nurse_Edit_Screen_1st_half" src="https://github.com/user-attachments/assets/d7775fb2-28f4-4d38-820f-08b2f8165a6f" />
+<img width="720" height="1600" alt="Edit_Screen_3rd_half " src="https://github.com/user-attachments/assets/137d980a-1bc3-4185-88e7-ab26e10080f2" />
+<img width="720" height="1600" alt="Edit_Screen_2nd_half" src="https://github.com/user-attachments/assets/596c60e8-f20d-4de4-a727-12228d6779f6" />
+
+---
+
 ## Known Limitations
 
 - Currently supports Pakistani phone number format
 - Web support is limited (primarily built for Android)
 - Chat feature requires both users to be registered
+- Advanced state-management(Provider, GetX, Riverpod or Bloc) hasn't been used in this project yet
+- This app does not have an admin pannel yet
 
 ---
 
