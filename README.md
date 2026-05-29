@@ -84,6 +84,15 @@ and `firebase_options.dart` files are excluded from this repository for security
    - Authentication (Email/Password)
    - Realtime Database
 
+### Database URL
+
+Replace the database URL in `main.dart` with your own 
+Firebase Realtime Database URL found in your Firebase console 
+under **Realtime Database → Data tab**.
+```dart
+FirebaseDatabase.instance.databaseURL='https://final-year-project-c208b-default-rtdb.firebaseio.com';
+```
+
 ### Cloudinary Setup
 
 This project uses Cloudinary for image uploads. 
